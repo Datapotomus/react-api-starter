@@ -13,8 +13,14 @@ import Welcome from "./components/welcome/Welcome";
 import UserList from "./components/userList/UserList";
 import User from './components/user/User';
 
+//Import post related components
+import PostList from './components/postList/PostList';
+import Post from './components/post/Post';
+
 //Import NoMath (404) Component
 import NoMatch from "./components/noMatch/NoMatch";
+
+
 
 function App() {
   return (
@@ -41,6 +47,15 @@ function App() {
         <Route
           path="/user/:id"
           component={User}
+        />
+        <Route
+          exact
+          path="/posts"
+          component={PostList}
+        />
+        <Route
+          path="/post/:id"
+          component={Post}
         />
         <Route
           path="*"
