@@ -17,6 +17,9 @@ import User from './components/user/User';
 import PostList from './components/postList/PostList';
 import Post from './components/post/Post';
 
+//Importing Jeopardy game
+import Jeopardy from './components/jeopardy/Jeopardy';
+
 //Import NoMath (404) Component
 import NoMatch from "./components/noMatch/NoMatch";
 
@@ -56,6 +59,10 @@ function App() {
         <Route
           path="/post/:id"
           component={Post}
+        />
+        <Route
+          path="/jeopardy"
+          component={Jeopardy}
         />
         <Route
           path="*"

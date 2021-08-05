@@ -14,6 +14,9 @@ const Navigation = (props) => {
                 <li>
                     <Link to="/posts">Posts</Link>
                 </li>
+                <li>
+                    <Link to="/jeopardy">Jeopardy Game</Link>
+                </li>
             </ul>
         </nav>
     );
