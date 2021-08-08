@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Jeopardy.css'
 
 class Jeopardy extends Component {
 
@@ -55,15 +56,40 @@ class Jeopardy extends Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault(); 
-    let newScore = this.state.score + this.state.data.value
+    event.preventDefault();
+  }
+
+  handleAnswer = (event) => {
+    let newScore;
+    let isAnswerCorrect;
+    let currentAnswer = this.state.formData.answer.toUpperCase()
+    const correctAnswer = this.state.data.answer.toUpperCase();
+
+    if (correctAnswer.includes(currentAnswer)
+        && currentAnswer !== ""
+        && currentAnswer !== " "){
+      console.log(typeof correctAnswer, "correct answer")
+      newScore = this.state.score + this.state.data.value
+      isAnswerCorrect = true
+    } else {
+      console.log("incorrect answer")
+      newScore = this.state.score - this.state.data.value
+      isAnswerCorrect = false
+    }
     this.setState({
-      score: newScore
+      score: newScore,
+      previousAnswerCorrect: isAnswerCorrect,
     })
+    this.getNewQuestion();
+
+  }
+
+  handleSkip = (event) => {
+    this.getNewQuestion();
   }
 
 
-  resetForm = (event) => {
+  resetForm= (event) => {
     this.setState({
       formData: {
         answer: ""
@@ -76,15 +102,21 @@ class Jeopardy extends Component {
   render() {
     const answerIsLoaded = this.state.data.category.title
     let renderTitle;
+    let lastAnswer;
+    if (this.state.previousAnswerCorrect){
+      lastAnswer = <div>You are: Correct!</div>
+    } else {
+      lastAnswer = <div>You are: Incorrect!</div>
+    }
 
     if (answerIsLoaded === ""){
-      renderTitle = <div>Category Title (Conditional): Loading...</div>;
+      renderTitle = <div className="catTitle">Category Title (Conditional): Loading...</div>;
     } else {
-      renderTitle = <div>Category Title(Conditional): {this.state.data.category.title} </div>;
+      renderTitle = <div className="catTitle">Category Title(Conditional): {this.state.data.category.title} </div>;
     }
 
     return (
-      <div>
+      <div className="jeopardybox test">
         
         {renderTitle}
         <br />
@@ -102,13 +134,15 @@ class Jeopardy extends Component {
             {/* <input onChange={this.handleChange} type="text" name="firstName" value={this.state.formData.firstName} /> */}
             <input onChange={this.handleChange} type="text" name="answer" placeholder="Answer" value={this.state.formData.answer}/>
           </div>
-          <button onClick={this.resetForm}>Submit Form</button> 
+          {/* <button onClick={this.resetForm}>Submit Form</button>  */}
+          <button onClick={this.handleAnswer}>Answer</button><button onClick={this.handleSkip}>Skip Question</button>
         </form>
-        Current Points: {this.state.score}
+        User Current Score: {this.state.score}
         <br />
         Test Answer: {this.state.correct_answer}
         <br />
         Form data: {this.state.formData.answer}
+        {lastAnswer}
       </div>
     );
   }

@@ -1,0 +1,12 @@
+button {
+  margin: .5em;
+}
+
+.jeopardybox{
+  /* border: 1px solid black; */
+  margin: 1em;
+}
+
+.catTitle{
+  font-weight: bold;
+}
